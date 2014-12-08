@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+<head>
+    <link rel = "stylesheet" href = "jquery.mobile-1.4.4/jquery.mobile-1.4.4.min.css">
+    <script src = "jquery-1.11.1.js"></script>
+    <script src = "jquery.mobile-1.4.4/jquery.mobile-1.4.4.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- this makes the page mobile screen friendly-->
+    <script>
+
+//makes a synchronous call to the page u and return the 
+        //result as object
+        //var t;
+        function syncAjax(u) {
+            console.log(u);
+            var obj = $.ajax(
+                    {url: u,
+                        async: false
+                    }
+            );
+            return console.log(obj.responseText);
+            return $.parseJSON(obj.responseText);
+        }
+
+
+        //returns a result object for one record
+        function getUser() {
+
+            var user = document.getElementById("username").value;
+            var pass= document.getElementById("password").value;
+            //alert(user+''+pass);
+            var u = "http://localhost/mobileweb/market_actionpage.php?cmd=1&user=" + user + "&password=" + pass;
+            r=syncAjax(u);
+            //var name = r.trader.message;
+            //if(name=="record not found"){
+                alert("Login Successful!");
+            window.location="#pagethree";
+       // }
+        }
+        
+        
+        function addUser(){
+            
+            var user = document.getElementById("username").value;
+            var pass= document.getElementById("password").value;
+            var rePass=document.getElementById("password").value;
+            var u = "http://localhost/mobileweb/market_actionpage.php?cmd=1&user=" + user + "&pass=" + pass;
+            return syncAjax(u);
+            window.location="#pagethree";
+        }
+
+
+
+       
+    </script>
+    <title></title>
+</head>
+<body>
+    <!--Page One-->
+    <div data-role = "page" id = "pageone">
+        <div data-role="header">
+            <a href="#pagetwo" id='signUpButton' class="ui-btn-right"  data-role="button" data-icon="">Sign up</a>
+            <h1>Market Homepage</h1>
+        </div>
+
+
+
+
+        <div role = "main" class = "ui-content">
+            <form >
+                <div class="ui-field-contain">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" id="username">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password">
+
+
+                    <input type="submit" data-inline="true" onclick="getUser()" value="Sign in" data-theme="b">
+                </div>
+            </form>
+
+
+
+        </div>
+    </div>
+
+
+    <!--Page Two-->
+    <div data-role = "page" id = "pagetwo">
+        <div data-role = "header">
+            <div data-role = "navbar">
+                <ul>
+                    <li>Sign up</li>
+
+                    <li> <a href="#pageone" id="btnExit" class="ui-btn-right"  data-role="button" data-icon="">Exit</a></li>
+
+                </ul>
+            </div>
+        </div>
+
+        <div>
+            <form >
+                <div class="ui-field-contain">
+                    <label for="uName">Username</label>
+                    <input type="text" name="uName" id="uName">
+                    <label for="uPassword">Password</label>
+                    <input type="password" name="password" id="uPassword">
+                    <label for="passwordRe">Retype Password</label>
+                    <input type="password" name="passwordRe" id="passwordRe">
+                    <fieldset data-role="controlgroup">
+                        <legend>Goods</legend>
+                        <label for="tomatoes">Tomatoes</label>
+                        <input type="radio" id="tomatoes" value="tomatoes">
+                        <label for="gari">Gari</label>
+                        <input type="radio" id="gari" value="gari">
+                        <label for="kokonte">Kokonte</label>
+                        <input type="radio" id="kokonte" value="kokonte">
+                        <label for="cassava">Cassava</label>
+                        <input type="radio" id="cassava" value="cassava">
+                        <label for="sugar">Sugar</label>
+                        <input type="radio" id="sugar" value="sugar">
+                    </fieldset>
+                    <input type="submit" data-inline="true" onclick="addUser()" value="Submit" data-theme="b">
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <div data-role = "page" id = "pagethree">
+        <div data-role="header">
+            <a href="#pageone" id= "btnSignOut" class="ui-btn-right"  data-role="button" data-icon="">Sign out</a>
+            <h1>Update Prices</h1>
+        </div>
+
+        <div>
+            <form method="post" action="">
+                <div class="ui-field-contain">
+                    <label for="price">Today's Price</label>
+                    <input type="text" name="price" id="price">
+                    <input type="submit" data-inline="true" value="Update" data-theme="b">
+
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+</body>
+</html>
